@@ -1,4 +1,4 @@
-package lktm.maple3142.net.lktmanager
+package net.maple3142.lktmanager.lktmanager
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

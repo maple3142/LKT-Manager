@@ -8,6 +8,15 @@
     <string name="root_required">需要 Root!</string>
     <string name="ok">确定</string>
     <string name="lkt_not_installed">没有安装 LKT!</string>
-    <string name="changing_profile">切换到%s模式...</string>
+    <string name="changing_profile">切换到%s 模式...</string>
     <string name="failed_to_change_profile">模式切换失败!</string>
+    <string name="about">关于</string>
+    <string name="github">GitHub</string>
+    <string name="supports_links">支援连结</string>
+    <string name="xda">XDA</string>
+    <string name="telegram">Telegram</string>
+    <string name="status">状态</string>
+    <string name="lkt_ver">LKT 版本: %s</string>
+    <string name="busybox_ver">BusyBox 版本: %s</string>
+    <string name="description"><![CDATA[这是个为<a href="https://github.com/Magisk-Modules-Repo/legendary_kernel_tweaks">LKT</a> 而做的管理器, 让您能简单的切换它的模式。 ]]></string>
 </resources>

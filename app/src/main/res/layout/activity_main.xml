@@ -5,35 +5,95 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context="net.maple3142.lktmanager.MainActivity">
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:gravity="center_vertical|center_horizontal">
-        <TextView
-                android:text="@string/current_profile"
+            android:layout_height="match_parent" android:gravity="center_vertical|center_horizontal"
+    >
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/profile" android:gravity="center_horizontal"/>
-        <Button
-                android:text="@string/battery"
+                android:layout_height="wrap_content" android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal">
+            <TextView
+                    android:text="@string/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView" android:textAlignment="center"
+                    android:textSize="30sp"/>
+            <TextView
+                    android:text="@string/lkt_ver"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/lkt_ver" android:textAlignment="center"/>
+            <TextView
+                    android:text="@string/busybox_ver"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/busybox_ver" android:textAlignment="center"/>
+            <TextView
+                    android:text="@string/current_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/profile" android:gravity="center_horizontal"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/battery"
-        />
-        <Button
-                android:text="@string/balanced"
+                android:layout_height="wrap_content" android:gravity="center_vertical|center_horizontal"
+                android:layout_weight="1">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <Button
+                        android:text="@string/battery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/battery"
+                        android:layout_weight="1"/>
+                <Button
+                        android:text="@string/balanced"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/balanced"
+                        android:layout_weight="1"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <Button
+                        android:text="@string/performance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/performance"
+                        android:layout_weight="1"/>
+                <Button
+                        android:text="@string/turbo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/turbo"
+                        android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/balanced"
-        />
-        <Button
-                android:text="@string/performance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/performance"
-        />
-        <Button
-                android:text="@string/turbo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/turbo"
-        />
+                android:layout_height="wrap_content" android:layout_weight="1" tools:layout_editor_absoluteY="52dp"
+                android:gravity="bottom|center_horizontal">
+            <TextView
+                    android:text="@string/supports_links"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/textView3" android:textAlignment="center"
+                    android:textSize="18sp"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <Button
+                        android:text="@string/xda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/xda" android:layout_weight="1"/>
+                <Button
+                        android:text="@string/telegram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/telegram" android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

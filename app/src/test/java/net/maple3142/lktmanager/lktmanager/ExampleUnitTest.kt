@@ -1,4 +1,4 @@
-package lktm.maple3142.net.lktmanager
+package net.maple3142.lktmanager.lktmanager
 
 import org.junit.Test
 
