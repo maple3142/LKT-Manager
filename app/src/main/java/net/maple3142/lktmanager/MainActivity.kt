@@ -26,15 +26,14 @@ class MainActivity : AppCompatActivity() {
             showMessage(getString(R.string.root_required), exit = true)
             return
         }
-        findViewById<TextView>(R.id.busybox_ver).text = getString(R.string.busybox_ver, getBusyBoxVersion())
-        findViewById<TextView>(R.id.lkt_ver).text = getString(R.string.lkt_ver, getLKTVersion())
-
-        val initialProfileName = getProfile()
-        if (initialProfileName == null) {
+        val status = getLKTStatus()
+        if (status == null) {
             showMessage(getString(R.string.lkt_not_installed), exit = true)
             return
         }
-        val manager = ProfileManager(initialProfileName)
+        updateStatus(status)
+
+        val manager = ProfileManager(status.profileName as String)
         manager.initializeWithActivity(this)
         updateCurrentProfileName(manager.currentProfile?.btn?.text.toString())
         for (profile in manager.profiles) {
@@ -51,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                         manager.profiles.forEach { it.btn?.isEnabled = true }
                         manager.currentProfile?.btn?.isEnabled = false
                         updateCurrentProfileName(manager.currentProfile?.btn?.text.toString())
+                        updateStatus(getLKTStatus() as LKTStatus)
                     }
                 }
             }
@@ -75,17 +75,22 @@ class MainActivity : AppCompatActivity() {
                 val dialog = AlertDialog.Builder(this)
                         .setTitle(getString(R.string.about))
                         .setMessage(Html.fromHtml(getString(R.string.description), Html.FROM_HTML_MODE_LEGACY))
-                        .setPositiveButton(R.string.ok, { _, _ ->
+                        .setPositiveButton(R.string.ok) { _, _ ->
 
-                        })
-                        .setNeutralButton(R.string.github, { _, _ ->
+                        }
+                        .setNeutralButton(R.string.github) { _, _ ->
                             openUri("https://github.com/maple3142/LKT-Manager")
-                        })
+                        }
                         .show()
                 dialog.findViewById<TextView>(android.R.id.message)?.movementMethod = LinkMovementMethod.getInstance()
             }
         }
         return true
+    }
+
+    private fun updateStatus(status: LKTStatus) {
+        findViewById<TextView>(R.id.busybox_ver).text = getString(R.string.busybox_ver, status.busyboxVersion)
+        findViewById<TextView>(R.id.lkt_ver).text = getString(R.string.lkt_ver, status.LKTVersion)
     }
 
     private fun updateCurrentProfileName(profileName: String?) {
@@ -96,11 +101,11 @@ class MainActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
                 .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton(R.string.ok, { _, _ ->
+                .setPositiveButton(R.string.ok) { _, _ ->
                     if (exit) {
                         System.exit(0)
                     }
-                })
+                }
         builder.show()
     }
 

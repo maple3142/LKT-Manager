@@ -5,7 +5,7 @@
     <string name="performance">效能 (Performance)</string>
     <string name="turbo">极速 (Turbo)</string>
     <string name="current_profile">目前模式: %s</string>
-    <string name="root_required">需要 Root!</string>
+    <string name="root_required">需要 Root 权限!</string>
     <string name="ok">确定</string>
     <string name="lkt_not_installed">没有安装 LKT!</string>
     <string name="changing_profile">切换到%s 模式...</string>

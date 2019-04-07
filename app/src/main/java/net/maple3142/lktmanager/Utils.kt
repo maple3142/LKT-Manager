@@ -1,8 +1,5 @@
 package net.maple3142.lktmanager
 
-import java.io.BufferedReader
-import java.io.InputStreamReader
-
 class SuException(msg: String) : Exception(msg)
 
 fun sudo(cmd: String): String {
@@ -13,8 +10,7 @@ fun sudo(cmd: String): String {
     outs.flush()
     outs.close()
     proc.waitFor()
-    val reader = BufferedReader(InputStreamReader(ins))
-    val result = reader.lineSequence().joinToString()
+    val result = ins.bufferedReader().use { it.readText() }
     if (proc.exitValue() != 0) {
         throw SuException("No permission!")
     }
@@ -30,23 +26,20 @@ fun hasRoot(): Boolean {
     }
 }
 
+data class LKTStatus(val profileName: String?, val busyboxVersion: String?, val LKTVersion: String?)
+
 val profilereg = """PROFILE : (\w+)""".toRegex()
-fun getProfile(): String? {
-    val content = sudo("cat /data/LKT.prop")
-    val result = profilereg.find(content)
-    return result?.groupValues?.get(1)
-}
-
 val busyboxreg = """BUSYBOX : ([a-z0-9.\-]*)""".toRegex()
-fun getBusyBoxVersion(): String? {
-    val content = sudo("cat /data/LKT.prop")
-    val result = busyboxreg.find(content)
-    return result?.groupValues?.get(1)
-}
-
 val lktreg = """LKT™ (v\d\.\d)""".toRegex()
-fun getLKTVersion(): String? {
-    val content = sudo("cat /data/LKT.prop")
-    val result = lktreg.find(content)
-    return result?.groupValues?.get(1)
+
+fun getLKTStatus(): LKTStatus? {
+    return try {
+        val content = sudo("cat /data/LKT.prop")
+        val profile = profilereg.find(content)?.groupValues?.get(1)
+        val busybox = busyboxreg.find(content)?.groupValues?.get(1)
+        val lkt = lktreg.find(content)?.groupValues?.get(1)
+        LKTStatus(profile, busybox, lkt)
+    } catch (e: SuException) {
+        null
+    }
 }
