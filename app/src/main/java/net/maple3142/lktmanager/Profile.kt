@@ -2,7 +2,6 @@ package net.maple3142.lktmanager
 
 import android.app.Activity
 import android.widget.Button
-import net.maple3142.lktmanager.R
 
 class Profile(val name: String, val mode: Int, val viewId: Int) {
     var btn: Button? = null
