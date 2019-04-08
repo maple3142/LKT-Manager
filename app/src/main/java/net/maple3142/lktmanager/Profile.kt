@@ -2,6 +2,7 @@ package net.maple3142.lktmanager
 
 import android.app.Activity
 import android.widget.Button
+import com.topjohnwu.superuser.Shell
 
 class Profile(val name: String, val mode: Int, val viewId: Int) {
     var btn: Button? = null
@@ -21,11 +22,11 @@ class ProfileManager(val initialProfileName: String) {
 
     fun useProfile(target: Profile, callback: (success: Boolean) -> Unit) {
         Thread {
-            try {
-                sudo("lkt ${target.mode}")
+            val code = Shell.su("lkt ${target.mode}").exec().code
+            if (code == 0) {
                 currentProfile = target
                 callback(true)
-            } catch (e: SuException) {
+            } else {
                 callback(false)
             }
         }.start()

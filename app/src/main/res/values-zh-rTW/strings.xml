@@ -4,7 +4,7 @@
     <string name="balanced">平衡 (Balanced)</string>
     <string name="performance">效能 (Performance)</string>
     <string name="turbo">極速 (Turbo)</string>
-    <string name="current_profile">目前模式: %s</string>
+    <string name="current_profile">目前模式： %s</string>
     <string name="root_required">需要 Root 權限!</string>
     <string name="ok">確定</string>
     <string name="lkt_not_installed">沒有安裝 LKT!</string>
@@ -16,7 +16,7 @@
     <string name="xda">XDA</string>
     <string name="telegram">Telegram</string>
     <string name="status">狀態</string>
-    <string name="lkt_ver">LKT 版本: %s</string>
-    <string name="busybox_ver">BusyBox 版本: %s</string>
+    <string name="lkt_ver">LKT 版本： %s</string>
+    <string name="busybox_ver">BusyBox 版本： %s</string>
     <string name="description"><![CDATA[這是個為 <a href="https://github.com/Magisk-Modules-Repo/legendary_kernel_tweaks">LKT</a> 而做的管理器, 讓您能簡單的切換它的模式。]]></string>
 </resources>

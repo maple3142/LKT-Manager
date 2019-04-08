@@ -15,14 +15,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<receiver android:name="WidgetProvider">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
-                <!--<action android:name="net.maple3142.lktmanager.SET_LKT_PROFILE" />-->
-            <!--</intent-filter>-->
-            <!--<meta-data-->
-                <!--android:name="android.appwidget.provider"-->
-                <!--android:resource="@xml/widget_provider" />-->
-        <!--</receiver>-->
     </application>
 </manifest>
