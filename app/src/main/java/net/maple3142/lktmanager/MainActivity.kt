@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
@@ -17,6 +18,8 @@ import android.widget.TextView
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        StrictMode::class.java.getMethod("disableDeathOnFileUriExposure").invoke(null) // being able to start intent with file://
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTaskDescription(ActivityManager.TaskDescription(getString(R.string.app_name)))
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
         updateStatus(status)
 
-        val manager = ProfileManager(status.profileName as String)
+        val manager = ProfileManager(status.profileName!!)
         manager.initializeWithActivity(this)
         updateCurrentProfileName(manager.currentProfile?.btn?.text.toString())
         for (profile in manager.profiles) {
@@ -50,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                         manager.profiles.forEach { it.btn?.isEnabled = true }
                         manager.currentProfile?.btn?.isEnabled = false
                         updateCurrentProfileName(manager.currentProfile?.btn?.text.toString())
-                        updateStatus(getLKTStatus() as LKTStatus)
+                        updateStatus(getLKTStatus()!!)
                     }
                 }
             }
@@ -73,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.about -> {
                 val dialog = AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.about))
+                        .setTitle(R.string.about)
                         .setMessage(Html.fromHtml(getString(R.string.description), Html.FROM_HTML_MODE_LEGACY))
                         .setPositiveButton(R.string.ok) { _, _ ->
 
@@ -83,6 +86,11 @@ class MainActivity : AppCompatActivity() {
                         }
                         .show()
                 dialog.findViewById<TextView>(android.R.id.message)?.movementMethod = LinkMovementMethod.getInstance()
+            }
+            R.id.openlog -> {
+                val intent = Intent(Intent.ACTION_EDIT)
+                intent.setDataAndType(Uri.parse("file:///data/LKT.prop"), "text/plain")
+                startActivity(intent)
             }
         }
         return true

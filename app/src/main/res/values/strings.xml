@@ -18,5 +18,6 @@
     <string name="status">Status</string>
     <string name="lkt_ver">LKT version: %s</string>
     <string name="busybox_ver">BusyBox version: %s</string>
-    <string name="description"><![CDATA[This is a manager made for <a href="https://github.com/Magisk-Modules-Repo/legendary_kernel_tweaks">LKT</a>, letting you easily change its profiles.]]></string>
+    <string name="description"><![CDATA[This is a manager made for <a href="https://github.com/Magisk-Modules-Repo/legendary_kernel_tweaks">LKT</a>, letting you easily change its profiles.<br>Updates will be released on GitHub.]]></string>
+    <string name="openlog">Open log file</string>
 </resources>

@@ -30,13 +30,14 @@ val profilereg = """PROFILE : (\w+)""".toRegex()
 val busyboxreg = """BUSYBOX : ([a-z0-9.\-]*)""".toRegex()
 val lktreg = """LKT™ (v\d\.\d)""".toRegex()
 fun getLKTStatus(): LKTStatus? {
-    return try {
-        val content = Shell.su("cat /data/LKT.prop").exec().out.joinToString()
+    val result = Shell.su("cat /data/LKT.prop").exec()
+    return if (result.code != 0) {
+        null
+    } else {
+        val content = result.out.joinToString()
         val profile = profilereg.find(content)?.groupValues?.get(1)
         val busybox = busyboxreg.find(content)?.groupValues?.get(1)
         val lkt = lktreg.find(content)?.groupValues?.get(1)
         LKTStatus(profile, busybox, lkt)
-    } catch (e: SuException) {
-        null
     }
 }
