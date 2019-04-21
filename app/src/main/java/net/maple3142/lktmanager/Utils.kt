@@ -26,15 +26,15 @@ fun hasRoot(): Boolean {
 
 data class LKTStatus(val profileName: String?, val busyboxVersion: String?, val LKTVersion: String?)
 
-val profilereg = """PROFILE : (\w+)""".toRegex()
-val busyboxreg = """BUSYBOX : ([a-z0-9.\-]*)""".toRegex()
-val lktreg = """LKT™ (v\d\.\d)""".toRegex()
+val profilereg = """PROFILE : (.*?)\n""".toRegex()
+val busyboxreg = """BUSYBOX : (.*?)\n""".toRegex()
+val lktreg = """LKT™ (.*?)\n""".toRegex()
 fun getLKTStatus(): LKTStatus? {
     val result = Shell.su("cat /data/LKT.prop").exec()
     return if (result.code != 0) {
         null
     } else {
-        val content = result.out.joinToString()
+        val content = result.out.joinToString(separator = "\n")
         val profile = profilereg.find(content)?.groupValues?.get(1)
         val busybox = busyboxreg.find(content)?.groupValues?.get(1)
         val lkt = lktreg.find(content)?.groupValues?.get(1)

@@ -14,8 +14,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import com.topjohnwu.superuser.Shell
 
 class MainActivity : AppCompatActivity() {
+
+    val ids = arrayListOf(R.id.battery, R.id.balanced, R.id.performance, R.id.turbo)
+    var btns: List<Button>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         StrictMode::class.java.getMethod("disableDeathOnFileUriExposure").invoke(null) // being able to start intent with file://
@@ -23,7 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTaskDescription(ActivityManager.TaskDescription(getString(R.string.app_name)))
-        title = title.toString() + " v" + BuildConfig.VERSION_NAME
+        title = "$title v${BuildConfig.VERSION_NAME}"
+        btns = ids.map { findViewById<Button>(it) }
 
         if (!hasRoot()) {
             showMessage(getString(R.string.root_required), exit = true)
@@ -31,31 +36,33 @@ class MainActivity : AppCompatActivity() {
         }
         val status = getLKTStatus()
         if (status == null) {
-            showMessage(getString(R.string.lkt_not_installed), exit = true)
-            return
+            showMessage(getString(R.string.log_file_not_found))
         }
         updateStatus(status)
-
-        val manager = ProfileManager(status.profileName!!)
-        manager.initializeWithActivity(this)
-        updateCurrentProfileName(manager.currentProfile?.btn?.text.toString())
-        for (profile in manager.profiles) {
-            profile.btn?.setOnClickListener {
+        for (id in ids) {
+            val btn = findViewById<Button>(id)
+            btn.setOnClickListener {
                 val dialog = ProgressDialog.show(this, "",
-                        getString(R.string.changing_profile, profile.btn?.text), true)
+                        getString(R.string.changing_profile, btn.text), true)
                 dialog.show()
-                manager.useProfile(profile) { success ->
+                val mode = when (id) {
+                    R.id.battery -> 1
+                    R.id.balanced -> 2
+                    R.id.performance -> 3
+                    R.id.turbo -> 4
+                    else -> 0
+                }
+                assert(mode != 0)
+                Thread {
+                    val code = Shell.su("lkt ${mode}").exec().code
                     this.runOnUiThread {
-                        if (!success) {
+                        if (code != 0) {
                             showMessage(getString(R.string.failed_to_change_profile))
                         }
                         dialog.hide()
-                        manager.profiles.forEach { it.btn?.isEnabled = true }
-                        manager.currentProfile?.btn?.isEnabled = false
-                        updateCurrentProfileName(manager.currentProfile?.btn?.text.toString())
-                        updateStatus(getLKTStatus()!!)
+                        updateStatus(getLKTStatus())
                     }
-                }
+                }.start()
             }
         }
 
@@ -96,13 +103,22 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    private fun updateStatus(status: LKTStatus) {
-        findViewById<TextView>(R.id.busybox_ver).text = getString(R.string.busybox_ver, status.busyboxVersion)
-        findViewById<TextView>(R.id.lkt_ver).text = getString(R.string.lkt_ver, status.LKTVersion)
-    }
-
-    private fun updateCurrentProfileName(profileName: String?) {
-        findViewById<TextView>(R.id.profile).text = getString(R.string.current_profile, profileName)
+    private fun updateStatus(status: LKTStatus?) {
+        findViewById<TextView>(R.id.busybox_ver).text = getString(R.string.busybox_ver, status?.busyboxVersion)
+        findViewById<TextView>(R.id.lkt_ver).text = getString(R.string.lkt_ver, status?.LKTVersion)
+        val currentId = when (status?.profileName) {
+            "Battery" -> 1
+            "Balanced" -> 2
+            "Performance" -> 3
+            "Turbo" -> 4
+            else -> 0
+        }
+        for (btn in btns!!) {
+            btn.isEnabled = true
+        }
+        if (currentId != 0) {
+            btns!![currentId - 1].isEnabled = false
+        }
     }
 
     private fun showMessage(message: String, exit: Boolean = false) {

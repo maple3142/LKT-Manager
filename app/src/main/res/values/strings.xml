@@ -4,10 +4,9 @@
     <string name="balanced">Balanced</string>
     <string name="performance">Performance</string>
     <string name="turbo">Turbo</string>
-    <string name="current_profile">Current Profile: %s</string>
     <string name="root_required">Root is required!</string>
     <string name="ok">OK</string>
-    <string name="lkt_not_installed">LKT not installed!</string>
+    <string name="log_file_not_found">Log file /data/LKT.prop doesn\'t exist.\nLKT is either not installed or not initialized.</string>
     <string name="changing_profile">Changing profile into %s...</string>
     <string name="failed_to_change_profile">Failed to change profile!</string>
     <string name="about">About</string>
