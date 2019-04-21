@@ -18,9 +18,6 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
