@@ -21,6 +21,12 @@ class MainActivity : AppCompatActivity() {
     val ids = arrayListOf(R.id.battery, R.id.balanced, R.id.performance, R.id.turbo)
     var btns: List<Button>? = null
 
+    val ACTION_BATTERY = "net.maple3142.lktmanager.profile.battery"
+    val ACTION_BALANCED = "net.maple3142.lktmanager.profile.balanced"
+    val ACTION_PERFORMANCE = "net.maple3142.lktmanager.profile.performance"
+    val ACTION_TURBO = "net.maple3142.lktmanager.profile.turbo"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         StrictMode::class.java.getMethod("disableDeathOnFileUriExposure").invoke(null) // being able to start intent with file://
 
@@ -66,11 +72,25 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Support links
         findViewById<Button>(R.id.xda).setOnClickListener {
             openUri("https://forum.xda-developers.com/apps/magisk/xz-lxt-1-0-insane-battery-life-12h-sot-t3700688")
         }
         findViewById<Button>(R.id.telegram).setOnClickListener {
             openUri("https://t.me/LKT_XDA")
+        }
+
+        // Handle intents
+        fun click(btn: Button) {
+            if (btn.isEnabled) {
+                btn.performClick()
+            }
+        }
+        when (intent.action) {
+            ACTION_BATTERY -> click(btns!![0])
+            ACTION_BALANCED -> click(btns!![1])
+            ACTION_PERFORMANCE -> click(btns!![2])
+            ACTION_TURBO -> click(btns!![3])
         }
     }
 
