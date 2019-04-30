@@ -3,3 +3,4 @@
 A manager app for [LKT](https://github.com/Magisk-Modules-Repo/legendary_kernel_tweaks).
 
 ![preview](preview.jpg)
+![shortcuts](shortcuts.jpg)
