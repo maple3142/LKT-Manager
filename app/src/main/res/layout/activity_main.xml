@@ -23,6 +23,10 @@
             android:textSize="30sp" />
 
         <TextView
+                android:text="@string/manager_ver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/manager_ver" android:textAlignment="center"/>
+        <TextView
             android:id="@+id/lkt_ver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

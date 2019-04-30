@@ -17,6 +17,9 @@
     <string name="status">状态</string>
     <string name="lkt_ver">LKT 版本：%s</string>
     <string name="busybox_ver">BusyBox 版本：%s</string>
-    <string name="description"><![CDATA[这是个为<a href="https://github.com/Magisk-Modules-Repo/legendary_kernel_tweaks">LKT</a> 而做的管理器, 让您能简单的切换它的模式。<br>更新将会发布在 GitHub 上。]]></string>
+    <string name="description">
+        <![CDATA[这是个为<a href="https://github.com/Magisk-Modules-Repo/legendary_kernel_tweaks">LKT</a> 而做的管理器, 让您能简单的切换它的模式。<br>更新将会发布在 <a href="https://github.com/maple3142/LKT-Manager">GitHub</a> 上。]]></string>
     <string name="openlog">开启日志</string>
+    <string name="contact_dev">联络我（Telegram）</string>
+    <string name="manager_ver">LKT 管理器版本：%s</string>
 </resources>

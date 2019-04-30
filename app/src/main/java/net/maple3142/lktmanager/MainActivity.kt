@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTaskDescription(ActivityManager.TaskDescription(getString(R.string.app_name)))
-        title = "$title v${BuildConfig.VERSION_NAME}"
         btns = ids.map { findViewById<Button>(it) }
+        findViewById<TextView>(R.id.manager_ver)!!.text = getString(R.string.manager_ver, BuildConfig.VERSION_NAME)
 
         if (!hasRoot()) {
             showMessage(getString(R.string.root_required), exit = true)
@@ -88,8 +88,8 @@ class MainActivity : AppCompatActivity() {
                         .setPositiveButton(R.string.ok) { _, _ ->
 
                         }
-                        .setNeutralButton(R.string.github) { _, _ ->
-                            openUri("https://github.com/maple3142/LKT-Manager")
+                        .setNeutralButton(R.string.contact_dev) { _, _ ->
+                            openUri("https://t.me/maple3142")
                         }
                         .show()
                 dialog.findViewById<TextView>(android.R.id.message)?.movementMethod = LinkMovementMethod.getInstance()
